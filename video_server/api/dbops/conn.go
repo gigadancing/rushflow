@@ -1,6 +1,10 @@
 package dbops
 
-import "database/sql"
+import (
+	"database/sql"
+	// 引入数据库驱动注册及初始化
+	_ "github.com/go-sql-driver/mysql"
+)
 
 var (
 	dbConn *sql.DB
