@@ -31,28 +31,28 @@ func TestUserWorkFlow(t *testing.T) {
 }
 
 func testAddUser(t *testing.T) {
-	err := AddUserCredential("chensiqi", "123")
+	err := AddUserCredential("kevin", "123")
 	if err != nil {
 		t.Errorf("Error of AddUser:%v", err)
 	}
 }
 
 func testGetUser(t *testing.T) {
-	pwd, err := GetUserCredential("chensiqi")
+	pwd, err := GetUserCredential("kevin")
 	if pwd != "123" || err != nil {
 		t.Errorf("Errof of GetUser")
 	}
 }
 
 func testDeleteUser(t *testing.T) {
-	err := DeleteUser("chensiqi", "123")
+	err := DeleteUser("kevin", "123")
 	if err != nil {
 		t.Errorf("Error of DeleteUser:%v", err)
 	}
 }
 
 func testRegetUser(t *testing.T) {
-	pwd, err := GetUserCredential("chensiqi")
+	pwd, err := GetUserCredential("kevin")
 	if err != nil {
 		t.Errorf("Error of AddUser:%v", err)
 	}
