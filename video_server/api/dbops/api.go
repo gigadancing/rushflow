@@ -3,8 +3,8 @@ package dbops
 import (
 	"database/sql"
 	"log"
-	"runshflow/video_server/api/defs"
-	"runshflow/video_server/api/utils"
+	"rushflow/video_server/api/defs"
+	"rushflow/video_server/api/utils"
 	"time"
 )
 
@@ -78,24 +78,18 @@ func AddNewVideo(aid int, name string) (*defs.VideoInfo, error) {
 // 查询视频
 func GetVideoInfo(vid string) (*defs.VideoInfo, error) {
 	stmtOut, err := dbConn.Prepare("SELECT author_id, name, display_ctime FROM video_info WHERE id=?")
-
 	var aid int
 	var dct string
 	var name string
-
 	err = stmtOut.QueryRow(vid).Scan(&aid, &name, &dct)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
-
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}
-
 	defer stmtOut.Close()
-
 	res := &defs.VideoInfo{Id: vid, AuthorId: aid, Name: name, DisplayCtime: dct}
-
 	return res, nil
 }
 
