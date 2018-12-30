@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"rushflow/video_server/api/defs"
 	"rushflow/video_server/api/sessions"
 )
 
@@ -29,7 +30,7 @@ func validateUserSession(r *http.Request) bool {
 func ValidateUser(w http.ResponseWriter, r *http.Request) bool {
 	username := r.Header.Get(HEADER_FIELD_UNAME)
 	if len(username) == 0 {
-		sendErrorResponse(w)
+		sendErrorResponse(w, defs.ErrorNotAuthUser)
 		return false
 	}
 	return true
