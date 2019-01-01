@@ -1,1 +1,1 @@
-package stream_server
+package main
