@@ -1,8 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"github.com/julienschmidt/httprouter"
+	"io"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -14,7 +16,7 @@ func streamHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 	vl := VIDEO_DIR + vid
 	video, err := os.Open(vl)
 	if err != nil {
-		fmt.Println(err)
+		log.Printf("Error when try to open file:%v", err)
 		sendErrorResponse(w, http.StatusInternalServerError, "Internal Error")
 		return
 	}
@@ -25,5 +27,33 @@ func streamHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 
 //
 func uploadHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	r.Body = http.MaxBytesReader(w, r.Body, MAX_UPLOAD_SIZE)
+	if err := r.ParseMultipartForm(MAX_UPLOAD_SIZE); err != nil {
+		sendErrorResponse(w, http.StatusBadRequest, "File is too big")
+		return
+	}
 
+	f, _, err := r.FormFile("file") // <form name="file">
+	if err != nil {
+		sendErrorResponse(w, http.StatusInternalServerError, "Internal Error")
+		return
+	}
+
+	data, err := ioutil.ReadAll(f)
+	if err != nil {
+		log.Printf("Read file error:%v", err)
+		sendErrorResponse(w, http.StatusInternalServerError, "Internal Error")
+		return
+	}
+
+	fn := p.ByName("vid-id")
+	err = ioutil.WriteFile(VIDEO_DIR+fn, data, 666)
+	if err != nil {
+		log.Printf("Write file error:%v", err)
+		sendErrorResponse(w, http.StatusInternalServerError, "Internal Error")
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	io.WriteString(w, "Uploaded Successfully")
 }
