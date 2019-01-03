@@ -5,10 +5,20 @@ import (
 	"net/http"
 )
 
-//
+// 中间件控制流量
 type middleWareHandler struct {
 	r *httprouter.Router
 	l *ConnLimiter
+}
+
+// 实现Handler接口
+func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if !m.l.GetConn() {
+		sendErrorResponse(w, http.StatusTooManyRequests, "Too many requests")
+		return
+	}
+	m.r.ServeHTTP(w, r)
+	defer m.l.ReleaseConn()
 }
 
 //
@@ -17,16 +27,6 @@ func NewMiddleWareHandler(r *httprouter.Router, cc int) http.Handler {
 	m.r = r
 	m.l = NewConnLimiter(cc)
 	return m
-}
-
-//
-func (m middleWareHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if !m.l.GetConn() {
-		sendErrorResponse(w, http.StatusTooManyRequests, "Too many requests")
-		return
-	}
-	m.r.ServeHTTP(w, r)
-	defer m.l.ReleaseConn()
 }
 
 //
