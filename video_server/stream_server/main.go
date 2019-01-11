@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// 中间件控制流量
+// 控制流量中间件
 type middleWareHandler struct {
 	r *httprouter.Router
 	l *ConnLimiter
