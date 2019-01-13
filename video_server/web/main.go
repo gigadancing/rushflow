@@ -12,7 +12,7 @@ func RegisterHandler() *httprouter.Router {
 	router.POST("/", homeHandler)
 	router.GET("/userhome", userHomeHandler)
 	router.POST("/userhome", userHomeHandler)
-	//router.POST("/api", apiHandler)
+	router.POST("/api", apiHandler)
 	router.ServeFiles("/statics/*filepath", http.Dir("./templates"))
 	return router
 }
