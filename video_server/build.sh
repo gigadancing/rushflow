@@ -2,7 +2,7 @@
 
 # Build web UI
 
-cd ~/gopath/src/rushflow/web
+cd ~/gopath/src/rushflow/video_server/web
 
 go install
 
