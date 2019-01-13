@@ -23,7 +23,7 @@ func request(b *ApiBody, w http.ResponseWriter, r *http.Request) {
 		resp *http.Response
 		err  error
 	)
-
+	// go中switch进入任何一个case都不会继续比较，不需break，这有别于其他高级语言
 	switch b.Method {
 	case http.MethodGet:
 		req, _ := http.NewRequest("GET", b.Url, nil)
