@@ -35,7 +35,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 			Name: "chendada",
 		}
 		if t, err = template.ParseFiles("./templates/home.html"); err != nil {
-			log.Printf("Parsing templates home.html error:%v", err)
+			log.Printf("Parsing home.html error:%v", err)
 			return
 		}
 		t.Execute(w, p)
@@ -49,4 +49,40 @@ func homeHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		return
 	}
 
+}
+
+//
+func userHomeHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	var (
+		p   *UserPage
+		t   *template.Template
+		err error
+	)
+
+	cname, err1 := r.Cookie("username")
+	_, err2 := r.Cookie("session")
+	//
+	if err1 != nil || err2 != nil {
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
+
+	//
+	fname := r.FormValue("username")
+	if len(cname.Value) != 0 {
+		p = &UserPage{
+			Name: cname.Value,
+		}
+	} else if len(fname) == 0 {
+		p = &UserPage{
+			Name: fname,
+		}
+	}
+
+	if t, err = template.ParseFiles("./templates/userhome.html"); err != nil {
+		log.Printf("Parse userhome.html error:%v", err)
+		return
+	}
+
+	t.Execute(w, p)
 }
