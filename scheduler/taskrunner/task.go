@@ -4,7 +4,7 @@ import (
 	"github.com/kataras/iris/core/errors"
 	"log"
 	"os"
-	"rushflow/video_server/scheduler/dbops"
+	"rushflow/scheduler/dbops"
 	"sync"
 )
 

@@ -6,9 +6,9 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"rushflow/video_server/api/dbops"
-	"rushflow/video_server/api/defs"
-	"rushflow/video_server/api/sessions"
+	"rushflow/api/dbops"
+	"rushflow/api/defs"
+	"rushflow/api/sessions"
 )
 
 func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {

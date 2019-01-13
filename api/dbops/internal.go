@@ -3,7 +3,7 @@ package dbops
 import (
 	"database/sql"
 	"log"
-	"rushflow/video_server/api/defs"
+	"rushflow/api/defs"
 	"strconv"
 	"sync"
 )

@@ -2,8 +2,8 @@ package main
 
 import (
 	"net/http"
-	"rushflow/video_server/api/defs"
-	"rushflow/video_server/api/sessions"
+	"rushflow/api/defs"
+	"rushflow/api/sessions"
 )
 
 var (

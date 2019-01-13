@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"rushflow/video_server/api/defs"
+	"rushflow/api/defs"
 )
 
 //

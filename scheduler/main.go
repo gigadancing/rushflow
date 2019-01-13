@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
-	"rushflow/video_server/scheduler/taskrunner"
+	"rushflow/scheduler/taskrunner"
 )
 
 //

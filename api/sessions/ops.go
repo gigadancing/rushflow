@@ -1,9 +1,9 @@
 package sessions
 
 import (
-	"rushflow/video_server/api/dbops"
-	"rushflow/video_server/api/defs"
-	"rushflow/video_server/api/utils"
+	"rushflow/api/dbops"
+	"rushflow/api/defs"
+	"rushflow/api/utils"
 	"sync"
 	"time"
 )
