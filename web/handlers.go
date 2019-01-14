@@ -8,6 +8,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/http/httputil"
+	"net/url"
 )
 
 //
@@ -109,4 +111,11 @@ func apiHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	request(apiBody, w, r)
 	defer r.Body.Close()
 
+}
+
+//
+func proxyHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	u, _ := url.Parse("http://127.0.0.1:9000/")
+	proxy := httputil.NewSingleHostReverseProxy(u)
+	proxy.ServeHTTP(w, r)
 }
