@@ -1,4 +1,4 @@
-package sessions
+package session
 
 import (
 	"rushflow/api/dbops"
@@ -25,7 +25,7 @@ func DeleteExpiredSession(sid string) {
 }
 
 // 加载session
-func LoadSessionsFromDB() {
+func LoadSessionFromDB() {
 	r, err := dbops.RetrieveAllSessions()
 	if err != nil {
 		return

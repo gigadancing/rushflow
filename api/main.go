@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/julienschmidt/httprouter"
 	"net/http"
+	"rushflow/api/sessions"
 )
 
 //
@@ -32,7 +33,13 @@ func RegisterHandlers() *httprouter.Router {
 	return router
 }
 
+//
+func Prepare() {
+	session.LoadSessionFromDB()
+}
+
 func main() {
+	Prepare()
 	r := RegisterHandlers()
 	mh := NewMiddleWareHandaler(r)
 	http.ListenAndServe(":8000", mh)
