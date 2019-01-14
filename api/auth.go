@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 	"rushflow/api/defs"
-	"rushflow/api/sessions"
+	"rushflow/api/session"
 )
 
 var (
@@ -18,7 +18,7 @@ func validateUserSession(r *http.Request) bool {
 		return false
 	}
 
-	username, ok := sessions.IsSessionExpired(sid)
+	username, ok := session.IsSessionExpired(sid)
 	if ok {
 		return false
 	}

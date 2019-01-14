@@ -13,7 +13,7 @@ func clearTables() {
 	dbConn.Exec("truncate users")
 	dbConn.Exec("truncate video_inf")
 	dbConn.Exec("truncate comments")
-	dbConn.Exec("truncate sessions")
+	dbConn.Exec("truncate session")
 }
 
 func TestMain(m *testing.M) {
