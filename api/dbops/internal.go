@@ -11,7 +11,7 @@ import (
 //
 func InsertSession(sid string, ttl int64, uname string) error {
 	ttlstr := strconv.FormatInt(ttl, 10)
-	stmtIns, err := dbConn.Prepare("INSERT INTO session (session_id, TTL, login_name) VALUES(?,?,?)")
+	stmtIns, err := dbConn.Prepare("INSERT INTO sessions (session_id, TTL, login_name) VALUES(?,?,?)")
 	if err != nil {
 		return err
 	}
@@ -27,7 +27,7 @@ func InsertSession(sid string, ttl int64, uname string) error {
 //
 func RetrieveSession(sid string) (*defs.SimpleSession, error) {
 	ss := &defs.SimpleSession{}
-	stmtOut, err := dbConn.Prepare("SELECT TTL,login_name FROM session WHERE session_id=?")
+	stmtOut, err := dbConn.Prepare("SELECT TTL,login_name FROM sessions WHERE session_id=?")
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func RetrieveSession(sid string) (*defs.SimpleSession, error) {
 //
 func RetrieveAllSessions() (*sync.Map, error) {
 	m := &sync.Map{}
-	stmtOut, err := dbConn.Prepare("SELECT * FROM session")
+	stmtOut, err := dbConn.Prepare("SELECT * FROM sessions")
 	if err != nil {
 		log.Printf("%s", err)
 		return nil, err
@@ -84,7 +84,7 @@ func RetrieveAllSessions() (*sync.Map, error) {
 
 //
 func DeleteSession(sid string) error {
-	stmtOut, err := dbConn.Prepare("DELETE FROM session WHERE session_id = ?")
+	stmtOut, err := dbConn.Prepare("DELETE FROM sessions WHERE session_id = ?")
 	if err != nil {
 		log.Printf("%s", err)
 		return err
